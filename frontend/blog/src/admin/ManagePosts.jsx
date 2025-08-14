@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import api from '../api';
 
 const ManagePosts = () => {
@@ -48,7 +48,7 @@ const ManagePosts = () => {
     const fetchCommentsForPost = async (postId) => {
         try {
             const res = await api.get(`/comments/post/${postId}`);
-            setComments(prev => ({ ...prev, [postId]: res.data }));
+            setComments(prev => ({...prev, [postId]: res.data}));
         } catch {
             setError('Failed to load comments.');
         }
@@ -66,28 +66,7 @@ const ManagePosts = () => {
             setError('Failed to delete comment.');
         }
     };
-
-    const handleEditComment = (comment) => {
-        setEditCommentId(comment.id);
-        setEditCommentContent(comment.content);
-    };
-
-    const handleSaveComment = async (postId) => {
-        try {
-            const res = await api.put(`/comments/${editCommentId}`, {
-                content: editCommentContent,
-            });
-            setComments(prev => ({
-                ...prev,
-                [postId]: prev[postId].map(c => c.id === res.data.id ? res.data : c),
-            }));
-            setEditCommentId(null);
-            setEditCommentContent('');
-        } catch {
-            setError('Failed to update comment.');
-        }
-    };
-
+    
     useEffect(() => {
         fetchPosts();
         fetchCategories();
@@ -129,7 +108,7 @@ const ManagePosts = () => {
             } else {
                 await api.post(`/posts/author`, payload);
             }
-            setForm({ title: '', content: '', categoryName: '', tagNames: [] });
+            setForm({title: '', content: '', categoryName: '', tagNames: []});
             setEditingId(null);
             fetchPosts();
         } catch {
@@ -158,36 +137,36 @@ const ManagePosts = () => {
     };
 
     return (
-        <div style={{ padding: 20 }}>
+        <div style={{padding: 20}}>
             <h2>Manage Posts</h2>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+            {error && <p style={{color: 'red'}}>{error}</p>}
 
-            <form onSubmit={handleSubmit} style={{ marginBottom: 20 }}>
+            <form onSubmit={handleSubmit} style={{marginBottom: 20}}>
                 <div>
-                    <label>Title</label><br />
+                    <label>Title</label><br/>
                     <input
                         type="text"
                         value={form.title}
-                        onChange={(e) => setForm({ ...form, title: e.target.value })}
+                        onChange={(e) => setForm({...form, title: e.target.value})}
                         required
                     />
                 </div>
 
-                <div style={{ marginTop: 10 }}>
-                    <label>Content</label><br />
+                <div style={{marginTop: 10}}>
+                    <label>Content</label><br/>
                     <textarea
                         rows={5}
                         value={form.content}
-                        onChange={(e) => setForm({ ...form, content: e.target.value })}
+                        onChange={(e) => setForm({...form, content: e.target.value})}
                         required
                     />
                 </div>
 
-                <div style={{ marginTop: 10 }}>
-                    <label>Category</label><br />
+                <div style={{marginTop: 10}}>
+                    <label>Category</label><br/>
                     <select
                         value={form.categoryName}
-                        onChange={(e) => setForm({ ...form, categoryName: e.target.value })}
+                        onChange={(e) => setForm({...form, categoryName: e.target.value})}
                         required
                     >
                         <option value="">-- Select category --</option>
@@ -199,10 +178,10 @@ const ManagePosts = () => {
                     </select>
                 </div>
 
-                <div style={{ marginTop: 10 }}>
-                    <label>Tags</label><br />
+                <div style={{marginTop: 10}}>
+                    <label>Tags</label><br/>
                     {tagsList.map((tag) => (
-                        <label key={tag.id || tag} style={{ marginRight: 10 }}>
+                        <label key={tag.id || tag} style={{marginRight: 10}}>
                             <input
                                 type="checkbox"
                                 checked={form.tagNames.includes(tag.name || tag)}
@@ -213,25 +192,25 @@ const ManagePosts = () => {
                     ))}
                 </div>
 
-                <button type="submit" style={{ marginTop: 10 }}>
+                <button type="submit" style={{marginTop: 10}}>
                     {editingId ? 'Update Post' : 'Create Post'}
                 </button>
                 {editingId && (
                     <button
                         type="button"
                         onClick={() => {
-                            setForm({ title: '', content: '', categoryName: '', tagNames: [] });
+                            setForm({title: '', content: '', categoryName: '', tagNames: []});
                             setEditingId(null);
                             setError('');
                         }}
-                        style={{ marginLeft: 10 }}
+                        style={{marginLeft: 10}}
                     >
                         Cancel
                     </button>
                 )}
             </form>
 
-            <table border="1" cellPadding="8" style={{ width: '100%' }}>
+            <table border="1" cellPadding="8" style={{width: '100%'}}>
                 <thead>
                 <tr>
                     <th>ID</th>
@@ -254,10 +233,10 @@ const ManagePosts = () => {
                                 <td>{post.authorUsername || 'Unknown'}</td>
                                 <td>
                                     <button onClick={() => handleEdit(post)}>Edit</button>
-                                    <button onClick={() => handleDelete(post.id)} style={{ marginLeft: 8 }}>
+                                    <button onClick={() => handleDelete(post.id)} style={{marginLeft: 8}}>
                                         Delete
                                     </button>
-                                    <button onClick={() => fetchCommentsForPost(post.id)} style={{ marginLeft: 8 }}>
+                                    <button onClick={() => fetchCommentsForPost(post.id)} style={{marginLeft: 8}}>
                                         View Comments
                                     </button>
                                 </td>
@@ -266,7 +245,7 @@ const ManagePosts = () => {
                             {comments[post.id] && (
                                 <tr>
                                     <td colSpan="6">
-                                        <table border="1" cellPadding="6" style={{ width: '100%', marginTop: 5 }}>
+                                        <table border="1" cellPadding="6" style={{width: '100%', marginTop: 5}}>
                                             <thead>
                                             <tr>
                                                 <th>ID</th>
@@ -280,23 +259,10 @@ const ManagePosts = () => {
                                                 <tr key={comment.id}>
                                                     <td>{comment.id}</td>
                                                     <td>{comment.authorUsername}</td>
+                                                    <td>{comment.content}</td>
                                                     <td>
-                                                        {editCommentId === comment.id ? (
-                                                            <input
-                                                                value={editCommentContent}
-                                                                onChange={(e) => setEditCommentContent(e.target.value)}
-                                                            />
-                                                        ) : (
-                                                            comment.content
-                                                        )}
-                                                    </td>
-                                                    <td>
-                                                        {editCommentId === comment.id ? (
-                                                            <button onClick={() => handleSaveComment(post.id)}>Save</button>
-                                                        ) : (
-                                                            <button onClick={() => handleEditComment(comment)}>Edit</button>
-                                                        )}
-                                                        <button onClick={() => handleDeleteComment(post.id, comment.id)} style={{ marginLeft: 5 }}>
+                                                        <button onClick={() => handleDeleteComment(post.id, comment.id)}
+                                                                style={{marginLeft: 5}}>
                                                             Delete
                                                         </button>
                                                     </td>

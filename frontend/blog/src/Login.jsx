@@ -21,13 +21,13 @@ const Login = () => {
 
             switch (role) {
                 case 'ADMIN':
-                    navigate('/admin');
+                    navigate('/admin/feed');
                     break;
                 case 'AUTHOR':
-                    navigate('/author');
+                    navigate('/author/feed');
                     break;
                 case 'READER':
-                    navigate('/reader');
+                    navigate('/reader/feed');
                     break;
                 default:
                     navigate('/login');
