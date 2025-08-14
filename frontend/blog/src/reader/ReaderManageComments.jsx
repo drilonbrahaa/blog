@@ -82,6 +82,7 @@ export default function ManageComments() {
                                 >
                                     Update
                                 </button>
+                                <button type="button" onClick={() => setEditingComments({})}>Cancel</button>
                             </div>
                         ) : (
                             <p>{c.content}</p>
