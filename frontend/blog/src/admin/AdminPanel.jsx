@@ -1,12 +1,13 @@
-// AdminDashboard.jsx
+// AdminPanel.jsx
 import React from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import ManageUsers from "./ManageUsers";
 import ManagePosts from "./ManagePosts";
 import ManageComments from "./ManageComments";
 import Feed from "../Feed";
+import "../Dashboard.css";
 
-const AdminDashboard = () => {
+const AdminPanel = () => {
     const navigate = useNavigate();
     const logout = () => {
         localStorage.clear();
@@ -14,9 +15,9 @@ const AdminDashboard = () => {
     };
 
     return (
-        <div style={{ display: 'flex' }}>
+        <div className="dashboard">
             {/* Sidebar */}
-            <nav style={{ width: 200, padding: 20, background: '#f0f0f0' }}>
+            <nav className="sidenav">
                 <h3>Admin Menu</h3>
                 <ul style={{ listStyle: 'none', padding: 0 }}>
                     <li><Link to="/admin/users">Manage Users</Link></li>
@@ -25,11 +26,11 @@ const AdminDashboard = () => {
                     <li><Link to="/admin/feed">Feed</Link></li>
                 </ul>
 
-                <button onClick={logout}>Logout</button>
+                <button className="logout" onClick={logout}>Logout</button>
             </nav>
 
             {/* Content */}
-            <div style={{ flex: 1, padding: 20 }}>
+            <div className="display">
                 <Routes>
                     <Route path="users" element={<ManageUsers />} />
                     <Route path="posts" element={<ManagePosts />} />
@@ -41,4 +42,4 @@ const AdminDashboard = () => {
     );
 };
 
-export default AdminDashboard;
+export default AdminPanel;

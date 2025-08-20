@@ -2,11 +2,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 import Feed from "./Feed";
-import AdminDashboard from "./admin/AdminDashboard";
-import ReaderDashboard from "./reader/ReaderDashboard";
+import AdminPanel from "./admin/AdminPanel";
+import ReaderPanel from "./reader/ReaderPanel";
 import ProtectedRoute from "./ProtectedRoute";
 import { Navigate } from "react-router-dom";
-import AuthorDashboard from "./author/AuthorDashboard";
+import AuthorPanel from "./author/AuthorPanel";
 
 function App() {
     return (
@@ -21,7 +21,7 @@ function App() {
                     path="/admin/*"
                     element={
                         <ProtectedRoute allowedRoles={["ADMIN"]}>
-                            <AdminDashboard />
+                            <AdminPanel />
                         </ProtectedRoute>
                     }
                 />
@@ -31,7 +31,7 @@ function App() {
                     path="/author/*"
                     element={
                         <ProtectedRoute allowedRoles={["AUTHOR"]}>
-                            <AuthorDashboard />
+                            <AuthorPanel />
                         </ProtectedRoute>
                     }
                 />
@@ -41,7 +41,7 @@ function App() {
                     path="/reader/*"
                     element={
                         <ProtectedRoute allowedRoles={["READER"]}>
-                            <ReaderDashboard />
+                            <ReaderPanel />
                         </ProtectedRoute>
                     }
                 />

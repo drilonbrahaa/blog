@@ -7,9 +7,7 @@ export default function Feed() {
     const [categories, setCategories] = useState([]);
     const [tags, setTags] = useState([]);
     const [filters, setFilters] = useState({
-        search: "",
-        categories: [],
-        tags: []
+        search: "", categories: [], tags: []
     });
 
     const [commentInputs, setCommentInputs] = useState({});
@@ -38,9 +36,7 @@ export default function Feed() {
 
         api.post(`/comments/post/${postId}`, {content}, {headers: {Authorization: `Bearer ${token}`}})
             .then(res => {
-                setPosts(posts.map(p =>
-                    p.id === postId ? {...p, comments: [...p.comments, res.data]} : p
-                ));
+                setPosts(posts.map(p => p.id === postId ? {...p, comments: [...p.comments, res.data]} : p));
                 setCommentInputs({...commentInputs, [postId]: ""});
             })
             .catch(err => console.error(err));
@@ -52,14 +48,9 @@ export default function Feed() {
 
         api.put(`/comments/${commentId}`, {content}, {headers: {Authorization: `Bearer ${token}`}})
             .then(res => {
-                setPosts(posts.map(p =>
-                    p.id === postId
-                        ? {
-                            ...p,
-                            comments: p.comments.map(c => c.id === commentId ? res.data : c)
-                        }
-                        : p
-                ));
+                setPosts(posts.map(p => p.id === postId ? {
+                    ...p, comments: p.comments.map(c => c.id === commentId ? res.data : c)
+                } : p));
                 setEditingCommentId(null);
                 setCommentInputs({...commentInputs, [postId]: ""});
             })
@@ -69,137 +60,134 @@ export default function Feed() {
     const handleDeleteComment = (commentId, postId) => {
         api.delete(`/comments/${commentId}`, {headers: {Authorization: `Bearer ${token}`}})
             .then(() => {
-                setPosts(posts.map(p =>
-                    p.id === postId
-                        ? {...p, comments: p.comments.filter(c => c.id !== commentId)}
-                        : p
-                ));
+                setPosts(posts.map(p => p.id === postId ? {
+                    ...p,
+                    comments: p.comments.filter(c => c.id !== commentId)
+                } : p));
             })
             .catch(err => console.error(err));
     };
 
     const toggleTagFilter = (tagName) => {
         setFilters(prev => {
-            const tags = prev.tags.includes(tagName)
-                ? prev.tags.filter(t => t !== tagName)
-                : [...prev.tags, tagName];
+            const tags = prev.tags.includes(tagName) ? prev.tags.filter(t => t !== tagName) : [...prev.tags, tagName];
             return {...prev, tags};
         });
     };
 
     const filteredPosts = posts.filter((post) => {
         const matchesSearch = post.title.toLowerCase().includes(filters.search.toLowerCase());
-        const matchesCategories =
-            filters.categories.length === 0 ||
-            filters.categories.some(cat => post.categoryName === cat);
-        const matchesTags =
-            filters.tags.length === 0 ||
-            post.tagNames.some(tag => filters.tags.includes(tag));
+        const matchesCategories = filters.categories.length === 0 || filters.categories.some(cat => post.categoryName === cat);
+        const matchesTags = filters.tags.length === 0 || post.tagNames.some(tag => filters.tags.includes(tag));
 
         return matchesSearch && matchesCategories && matchesTags;
     });
 
-    return (
-        <div className="feed-container" style={{padding: "20px"}}>
-            <h2>Feed</h2>
+    return (<div className="feed-container">
+        <div className="feed-navbar">
+            <h2>FEED</h2>
+            <div className="filter">
+                <input
+                    className="filter-search"
+                    type="text"
+                    placeholder="Search posts..."
+                    value={filters.search}
+                    onChange={(e) => setFilters({...filters, search: e.target.value})}
+                    style={{marginRight: "10px"}}
+                />
 
-            {/* Search */}
-            <input
-                type="text"
-                placeholder="Search posts..."
-                value={filters.search}
-                onChange={(e) => setFilters({...filters, search: e.target.value})}
-                style={{marginRight: "10px"}}
-            />
+                {/* Categories */}
 
-            {/* Categories */}
-            <select
-                multiple
-                value={filters.categories}
-                onChange={(e) => {
-                    const selected = Array.from(e.target.selectedOptions, opt => opt.value);
-                    setFilters({...filters, categories: selected});
-                }}
-                style={{marginRight: "10px"}}
-            >
-                {categories.map(cat => (
-                    <option key={cat.id} value={cat.name}>{cat.name}</option>
-                ))}
-            </select>
+                <select
+                    multiple
+                    value={filters.categories}
+                    onChange={(e) => {
+                        const selected = Array.from(e.target.selectedOptions, opt => opt.value);
+                        setFilters({...filters, categories: selected});
+                    }}
 
-            {/* Tags as Checkboxes */}
-            <div style={{display: "inline-block"}}>
-                {tags.map(tag => (
-                    <label key={tag.id} style={{marginRight: "10px"}}>
+                >
+                    {categories.map(cat => (<option key={cat.id} value={cat.name}>{cat.name}</option>))}
+                </select>
+
+                {/* Tags as Checkboxes */}
+                <div className="tags">
+                    {tags.map(tag => (<label key={tag.id}>
                         <input
                             type="checkbox"
                             checked={filters.tags.includes(tag.name)}
                             onChange={() => toggleTagFilter(tag.name)}
                         />
                         {tag.name}
-                    </label>
-                ))}
+                    </label>))}
+                </div>
             </div>
+        </div>
 
-            {/* Posts */}
-            <div className="feed" style={{marginTop: "20px"}}>
-                {filteredPosts.map((post) => (
-                    <div key={post.id} className="post-card"
-                         style={{border: "1px solid #ccc", padding: "15px", marginBottom: "15px", borderRadius: "8px"}}>
-                        <h3>{post.title}</h3>
-                        <p>{post.content}</p>
-                        <small>By {post.authorUsername}</small>
+        {/* Posts */}
+        <div className="posts">
+            {filteredPosts.map((post) => (<div key={post.id} className="post-card"
+            >
+                <div className={"title"}>
+                    <h3>{post.title}</h3>
+                    <small>By {post.authorUsername}</small>
+                </div>
+                <p className="content">{post.content}</p>
 
-                        {/* Comments */}
-                        <div className="comments" style={{marginTop: "10px", paddingLeft: "15px"}}>
-                            {post.comments.map((c) => (
-                                <div key={c.id} className="comment" style={{marginBottom: "5px"}}>
-                                    <strong>{c.authorUsername}: </strong>
-                                    {editingCommentId === c.id ? (
-                                        <>
-                                            <input
-                                                type="text"
-                                                value={commentInputs[post.id] || ""}
-                                                onChange={(e) => setCommentInputs({
-                                                    ...commentInputs,
-                                                    [post.id]: e.target.value
-                                                })}
-                                            />
-                                            <button onClick={() => handleEditComment(c.id, post.id)}>Save</button>
-                                            <button onClick={() => setEditingCommentId(null)}>Cancel</button>
-                                        </>
-                                    ) : (
-                                        <>
-                                            {c.content}
-                                            {c.authorUsername === username && (
-                                                <>
-                                                    <button onClick={() => {
-                                                        setEditingCommentId(c.id);
-                                                        setCommentInputs({...commentInputs, [post.id]: c.content});
-                                                    }}>Edit
-                                                    </button>
-                                                    <button onClick={() => handleDeleteComment(c.id, post.id)}>Delete
-                                                    </button>
-                                                </>
-                                            )}
-                                        </>
-                                    )}
-                                </div>
-                            ))}
-                        </div>
 
-                        {/* Add Comment */}
-                        <div style={{marginTop: "10px"}}>
+                {/* Comments */}
+                <div className="comments">
+                    {post.comments.map((c) => (<div key={c.id} className="comment">
+                        {editingCommentId === c.id ? (<div className="edit-comment">
+                            <input
+                                type="text"
+                                value={commentInputs[post.id] || ""}
+                                onChange={(e) => setCommentInputs({
+                                    ...commentInputs, [post.id]: e.target.value
+                                })}
+                            />
+                            <ul>
+                                <button className="green-button" onClick={() => handleEditComment(c.id, post.id)}>Save
+                                </button>
+                                <button className="red-button" onClick={() => setEditingCommentId(null)}>Cancel</button>
+                            </ul>
+                        </div>) : (<div>
+                            <p>
+                                <strong>{c.authorUsername}: </strong>
+                                {c.content}
+                            </p>
+                            {c.authorUsername === username && (<ul>
+                                <button className="green-button" onClick={() => {
+                                    setEditingCommentId(c.id);
+                                    setCommentInputs({...commentInputs, [post.id]: c.content});
+                                }}>Edit
+                                </button>
+                                <button className="red-button"
+                                        onClick={() => handleDeleteComment(c.id, post.id)}>Delete
+                                </button>
+                            </ul>)}
+                        </div>)}
+                    </div>))}
+                    <div className="add-comment">
+                        <div>
                             <input
                                 type="text"
                                 placeholder="Add a comment..."
                                 onChange={(e) => setCommentInputs({...commentInputs, [post.id]: e.target.value})}
                             />
-                            <button onClick={(e) => {handleAddComment(post.id);e.target.previousElementSibling.value="";}}>Post</button>
+                            <button className="green-button" onClick={(e) => {
+                                handleAddComment(post.id);
+                                e.target.previousElementSibling.value = "";
+                            }}>Post
+                            </button>
                         </div>
                     </div>
-                ))}
-            </div>
+
+                </div>
+
+                {/* Add Comment */}
+
+            </div>))}
         </div>
-    );
+    </div>);
 }
