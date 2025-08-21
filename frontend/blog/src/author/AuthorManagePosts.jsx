@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
-import {useNavigate} from "react-router-dom";
 import api from "../api";
+import "../styles/Crud.css";
 
 export default function AuthorManagePosts() {
     const [posts, setPosts] = useState([]);
@@ -12,7 +12,6 @@ export default function AuthorManagePosts() {
     const [comments, setComments] = useState({});
     const [showCommentsFor, setShowCommentsFor] = useState(null);
 
-    const navigate = useNavigate();
     const token = localStorage.getItem("token");
 
     useEffect(() => {
@@ -135,10 +134,10 @@ export default function AuthorManagePosts() {
                 {error && <p style={{color: "red"}}>{error}</p>}
 
                 {/* Post Form */}
-                <form onSubmit={handleSubmit} style={{marginBottom: 20}}>
+                <form onSubmit={handleSubmit} className="crud-form">
                     <div>
-                        <label>Title</label><br/>
                         <input
+                            placeholder="Title"
                             type="text"
                             value={form.title}
                             onChange={(e) => setForm({...form, title: e.target.value})}
@@ -147,8 +146,8 @@ export default function AuthorManagePosts() {
                     </div>
 
                     <div style={{marginTop: 10}}>
-                        <label>Content</label><br/>
                         <textarea
+                            placeholder="Content"
                             rows={5}
                             value={form.content}
                             onChange={(e) => setForm({...form, content: e.target.value})}
@@ -157,7 +156,6 @@ export default function AuthorManagePosts() {
                     </div>
 
                     <div style={{marginTop: 10}}>
-                        <label>Category</label><br/>
                         <select
                             value={form.categoryName}
                             onChange={(e) => setForm({...form, categoryName: e.target.value})}
@@ -173,7 +171,6 @@ export default function AuthorManagePosts() {
                     </div>
 
                     <div style={{marginTop: 10}}>
-                        <label>Tags</label><br/>
                         {tagsList.map((tag) => (
                             <label key={tag.id || tag} style={{marginRight: 10}}>
                                 <input
@@ -186,18 +183,18 @@ export default function AuthorManagePosts() {
                         ))}
                     </div>
 
-                    <button type="submit" style={{marginTop: 10}}>
+                    <button className="green-button" type="submit">
                         {editingId ? "Update Post" : "Create Post"}
                     </button>
                     {editingId && (
                         <button
+                            className="red-button"
                             type="button"
                             onClick={() => {
                                 setForm({title: "", content: "", categoryName: "", tagNames: []});
                                 setEditingId(null);
                                 setError("");
                             }}
-                            style={{marginLeft: 10}}
                         >
                             Cancel
                         </button>
@@ -205,7 +202,7 @@ export default function AuthorManagePosts() {
                 </form>
 
                 {/* Posts Table */}
-                <table border="1" cellPadding="8" style={{width: "100%"}}>
+                <table border="1" className="crud-table">
                     <thead>
                     <tr>
                         <th>ID</th>
@@ -225,18 +222,19 @@ export default function AuthorManagePosts() {
                                     <td>{post.categoryName || "-"}</td>
                                     <td>{(post.tagNames || []).join(", ")}</td>
                                     <td>
-                                        <button onClick={() => handleEdit(post)}>Edit</button>
-                                        <button onClick={() => handleDelete(post.id)} style={{marginLeft: 8}}>
+                                        <button className="green-button" onClick={() => handleEdit(post)}>Edit</button>
+                                        <button className="red-button" onClick={() => handleDelete(post.id)}
+                                                style={{marginLeft: 8}}>
                                             Delete
                                         </button>
-                                        <button
-                                            onClick={() => {
-                                                setShowCommentsFor(showCommentsFor === post.id ? null : post.id);
-                                                if (showCommentsFor !== post.id) {
-                                                    fetchComments(post.id);
-                                                }
-                                            }}
-                                            style={{marginLeft: 8}}
+                                        <button className="blue-button"
+                                                onClick={() => {
+                                                    setShowCommentsFor(showCommentsFor === post.id ? null : post.id);
+                                                    if (showCommentsFor !== post.id) {
+                                                        fetchComments(post.id);
+                                                    }
+                                                }}
+                                                style={{marginLeft: 8}}
                                         >
                                             {showCommentsFor === post.id ? "Hide Comments" : "View Comments"}
                                         </button>

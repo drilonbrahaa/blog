@@ -3,7 +3,7 @@ import React from 'react';
 import {Routes, Route, Link, useNavigate} from 'react-router-dom';
 import Feed from "../Feed";
 import ManageComments from "./ReaderManageComments";
-import "../Dashboard.css";
+import "../styles/Dashboard.css";
 
 const ReaderPanel = () => {
     const navigate = useNavigate();

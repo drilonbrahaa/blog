@@ -5,7 +5,7 @@ import ManageUsers from "./ManageUsers";
 import ManagePosts from "./ManagePosts";
 import ManageComments from "./ManageComments";
 import Feed from "../Feed";
-import "../Dashboard.css";
+import "../styles/Dashboard.css";
 
 const AdminPanel = () => {
     const navigate = useNavigate();

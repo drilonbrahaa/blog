@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import api from '../api';
+import "../styles/Crud.css";
 
 const ManageComments = () => {
     const [comments, setComments] = useState([]);
-    const [form, setForm] = useState({content: ''});
-    const [editingId, setEditingId] = useState(null);
     const [error, setError] = useState('');
 
     const fetchComments = async () => {
@@ -20,10 +19,6 @@ const ManageComments = () => {
         fetchComments();
     }, []);
 
-    const handleEdit = (comment) => {
-        setForm({content: comment.content});
-        setEditingId(comment.id);
-    };
 
     const handleDelete = async (id) => {
         if (!window.confirm('Delete this comment?')) return;
@@ -40,7 +35,7 @@ const ManageComments = () => {
             <h2>Manage Comments</h2>
             {error && <p style={{color: 'red'}}>{error}</p>}
 
-            <table border="1" cellPadding="8" style={{width: '100%'}}>
+            <table border="1" className="crud-table">
                 <thead>
                 <tr>
                     <th>ID</th>
@@ -59,7 +54,8 @@ const ManageComments = () => {
                             <td>{comment.postId || 'Unknown'}</td>
                             <td>{comment.authorUsername || 'Unknown'}</td>
                             <td>
-                                <button onClick={() => handleDelete(comment.id)} style={{marginLeft: 8}}>
+                                <button className="red-button" onClick={() => handleDelete(comment.id)}
+                                >
                                     Delete
                                 </button>
                             </td>

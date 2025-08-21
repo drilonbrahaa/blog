@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import api from "../api";
+import "../styles/Crud.css";
 
 export default function ManageComments() {
     const [comments, setComments] = useState([]);
@@ -56,56 +57,67 @@ export default function ManageComments() {
     return (
         <div className="manage-comments">
             <h2>My Comments</h2>
-            {comments.length === 0 ? (
-                <p>No comments found.</p>
-            ) : (
-                comments.map((c) => (
-                    <div key={c.id} className="comment-card">
-                        <div className="comment-post-title">
-                            On post: <strong>{c.postId}</strong>
-                        </div>
-                        {editingComments[c.id] !== undefined ? (
-                            <div className="edit-comment">
+            <table border="1" className="crud-table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Content</th>
+                    <th>Post</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {comments.length > 0 ? (
+                    comments.map((comment) => (
+                        <tr key={comment.id}>
+                            <td>{comment.id}</td>
+                            <td>{editingComments[comment.id] !== undefined ? (
                                 <input
                                     type="text"
-                                    value={editingComments[c.id]}
+                                    value={editingComments[comment.id]}
                                     onChange={(e) =>
                                         setEditingComments({
                                             ...editingComments,
-                                            [c.id]: e.target.value,
+                                            [comment.id]: e.target.value,
                                         })
                                     }
-                                />
-                                <button
-                                    className="btn-update"
-                                    onClick={() => handleUpdate(c.id)}
-                                >
-                                    Update
-                                </button>
-                                <button type="button" onClick={() => setEditingComments({})}>Cancel</button>
-                            </div>
-                        ) : (
-                            <p>{c.content}</p>
-                        )}
-                        {editingComments[c.id] === undefined && (
-                            <div className="comment-actions">
-                                <button
-                                    className="btn-edit"
-                                    onClick={() => handleEdit(c.id, c.content)}
-                                >
-                                    Edit
-                                </button>
-                                <button
-                                    className="btn-delete"
-                                    onClick={() => handleDelete(c.id)}
-                                >
-                                    Delete
-                                </button>
-                            </div>
-                        )}
-                    </div>
-                ))
-            )}
+                                />) : comment.content}</td>
+                            <td>{comment.postId || 'Unknown'}</td>
+                            <td>
+                                {editingComments[comment.id] === undefined ? (
+                                    <div className="comment-actions">
+                                        <button
+                                            className="green-button"
+                                            onClick={() => handleEdit(comment.id, comment.content)}
+                                        >
+                                            Edit
+                                        </button>
+                                        <button
+                                            className="red-button"
+                                            onClick={() => handleDelete(comment.id)}
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
+                                ) : (<>
+                                    <button
+                                        className="green-button"
+                                        onClick={() => handleUpdate(comment.id)}
+                                    >
+                                        Update
+                                    </button>
+                                    <button className="red-button" type="button" onClick={() => setEditingComments({})}>Cancel</button>
+                                </>)}
+                            </td>
+                        </tr>
+                    ))
+                ) : (
+                    <tr>
+                        <td colSpan="5">No comments found.</td>
+                    </tr>
+                )}
+                </tbody>
+            </table>
         </div>
     );
 }

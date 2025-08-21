@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from "react";
 import api from "./api";
-import "./Feed.css";
+import "./styles/Feed.css";
 
 export default function Feed() {
     const [posts, setPosts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [tags, setTags] = useState([]);
     const [filters, setFilters] = useState({
-        search: "", categories: [], tags: []
+        search: "", category: "", tags: []
     });
 
     const [commentInputs, setCommentInputs] = useState({});
@@ -77,10 +77,10 @@ export default function Feed() {
 
     const filteredPosts = posts.filter((post) => {
         const matchesSearch = post.title.toLowerCase().includes(filters.search.toLowerCase());
-        const matchesCategories = filters.categories.length === 0 || filters.categories.some(cat => post.categoryName === cat);
-        const matchesTags = filters.tags.length === 0 || post.tagNames.some(tag => filters.tags.includes(tag));
+        const matchesCategory = filters.category === "" || filters.category === post.categoryName;
+        const matchesTags = filters.tags.length === 0 || filters.tags.every(tag => post.tagNames.includes(tag));
 
-        return matchesSearch && matchesCategories && matchesTags;
+        return matchesSearch && matchesCategory && matchesTags;
     });
 
     return (<div className="feed-container">
@@ -99,14 +99,14 @@ export default function Feed() {
                 {/* Categories */}
 
                 <select
-                    multiple
-                    value={filters.categories}
+                    value={filters.category}
                     onChange={(e) => {
-                        const selected = Array.from(e.target.selectedOptions, opt => opt.value);
-                        setFilters({...filters, categories: selected});
+                        const selected = e.target.value;
+                        setFilters({...filters, category: selected});
                     }}
 
                 >
+                    <option value="">None</option>
                     {categories.map(cat => (<option key={cat.id} value={cat.name}>{cat.name}</option>))}
                 </select>
 

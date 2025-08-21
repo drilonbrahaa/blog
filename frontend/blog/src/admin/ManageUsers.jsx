@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from "../api";
+import "../styles/Crud.css";
 
 const ManageUsers = () => {
     const [users, setUsers] = useState([]);
@@ -57,7 +58,7 @@ const ManageUsers = () => {
             {error && <p style={{ color: 'red' }}>{error}</p>}
 
             {/* User Form */}
-            <form onSubmit={handleSubmit} style={{ marginBottom: 20 }}>
+            <form onSubmit={handleSubmit} className="crud-form">
                 <input
                     type="text"
                     placeholder="Username"
@@ -82,11 +83,12 @@ const ManageUsers = () => {
                     <option value="AUTHOR">Author</option>
                     <option value="READER">Reader</option>
                 </select>
-                <button type="submit">
+                <button className="green-button" type="submit">
                     {editingId ? 'Update' : 'Create'}
                 </button>
                 {editingId && (
                     <button
+                        className="red-button"
                         type="button"
                         onClick={() => {
                             setForm({ username: '', password: '', roleName: '' });
@@ -99,7 +101,7 @@ const ManageUsers = () => {
             </form>
 
             {/* Users Table */}
-            <table border="1" cellPadding="8" style={{ width: '100%' }}>
+            <table border="1" className="crud-table">
                 <thead>
                 <tr>
                     <th>ID</th>
@@ -115,9 +117,9 @@ const ManageUsers = () => {
                             <td>{u.id}</td>
                             <td>{u.username}</td>
                             <td>{u.roleName}</td>
-                            <td>
-                                <button onClick={() => handleEdit(u)}>Edit</button>
-                                <button onClick={() => handleDelete(u.id)}>Delete</button>
+                            <td className="actions">
+                                <button className="green-button" onClick={() => handleEdit(u)}>Edit</button>
+                                <button className="red-button" onClick={() => handleDelete(u.id)}>Delete</button>
                             </td>
                         </tr>
                     ))

@@ -7,6 +7,7 @@ import ReaderPanel from "./reader/ReaderPanel";
 import ProtectedRoute from "./ProtectedRoute";
 import { Navigate } from "react-router-dom";
 import AuthorPanel from "./author/AuthorPanel";
+import "./styles/App.css";
 
 function App() {
     return (

@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import api from '../api';
+import "../styles/Crud.css";
 
 const ManagePosts = () => {
     const [posts, setPosts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [tagsList, setTagsList] = useState([]);
     const [comments, setComments] = useState({});
-    const [editCommentId, setEditCommentId] = useState(null);
-    const [editCommentContent, setEditCommentContent] = useState('');
+    const [showCommentsFor, setShowCommentsFor] = useState(null);
 
     const [form, setForm] = useState({
         title: '',
@@ -66,7 +66,7 @@ const ManagePosts = () => {
             setError('Failed to delete comment.');
         }
     };
-    
+
     useEffect(() => {
         fetchPosts();
         fetchCategories();
@@ -141,11 +141,11 @@ const ManagePosts = () => {
             <h2>Manage Posts</h2>
             {error && <p style={{color: 'red'}}>{error}</p>}
 
-            <form onSubmit={handleSubmit} style={{marginBottom: 20}}>
+            <form className="crud-form" onSubmit={handleSubmit}>
                 <div>
-                    <label>Title</label><br/>
                     <input
                         type="text"
+                        placeholder="Title"
                         value={form.title}
                         onChange={(e) => setForm({...form, title: e.target.value})}
                         required
@@ -153,8 +153,8 @@ const ManagePosts = () => {
                 </div>
 
                 <div style={{marginTop: 10}}>
-                    <label>Content</label><br/>
                     <textarea
+                        placeholder="Content"
                         rows={5}
                         value={form.content}
                         onChange={(e) => setForm({...form, content: e.target.value})}
@@ -163,7 +163,6 @@ const ManagePosts = () => {
                 </div>
 
                 <div style={{marginTop: 10}}>
-                    <label>Category</label><br/>
                     <select
                         value={form.categoryName}
                         onChange={(e) => setForm({...form, categoryName: e.target.value})}
@@ -178,8 +177,7 @@ const ManagePosts = () => {
                     </select>
                 </div>
 
-                <div style={{marginTop: 10}}>
-                    <label>Tags</label><br/>
+                <div className="tags">
                     {tagsList.map((tag) => (
                         <label key={tag.id || tag} style={{marginRight: 10}}>
                             <input
@@ -192,25 +190,25 @@ const ManagePosts = () => {
                     ))}
                 </div>
 
-                <button type="submit" style={{marginTop: 10}}>
+                <button className="green-button" type="submit">
                     {editingId ? 'Update Post' : 'Create Post'}
                 </button>
                 {editingId && (
                     <button
+                        className="red-button"
                         type="button"
                         onClick={() => {
                             setForm({title: '', content: '', categoryName: '', tagNames: []});
                             setEditingId(null);
                             setError('');
                         }}
-                        style={{marginLeft: 10}}
                     >
                         Cancel
                     </button>
                 )}
             </form>
 
-            <table border="1" cellPadding="8" style={{width: '100%'}}>
+            <table border="1" className="crud-table">
                 <thead>
                 <tr>
                     <th>ID</th>
@@ -232,17 +230,23 @@ const ManagePosts = () => {
                                 <td>{(post.tagNames || []).join(', ')}</td>
                                 <td>{post.authorUsername || 'Unknown'}</td>
                                 <td>
-                                    <button onClick={() => handleEdit(post)}>Edit</button>
-                                    <button onClick={() => handleDelete(post.id)} style={{marginLeft: 8}}>
+                                    <button className="green-button" onClick={() => handleEdit(post)}>Edit</button>
+                                    <button className="red-button" onClick={() => handleDelete(post.id)}>
                                         Delete
                                     </button>
-                                    <button onClick={() => fetchCommentsForPost(post.id)} style={{marginLeft: 8}}>
-                                        View Comments
+                                    <button className="blue-button" onClick={() => {
+                                        setShowCommentsFor(showCommentsFor === post.id ? null : post.id);
+                                        if (showCommentsFor !== post.id) {
+                                            fetchCommentsForPost(post.id)
+                                        }
+
+                                    }}>
+                                        {showCommentsFor === post.id ? "Hide Comments" : "View Comments"}
                                     </button>
                                 </td>
                             </tr>
 
-                            {comments[post.id] && (
+                            {showCommentsFor === post.id && comments[post.id] && (
                                 <tr>
                                     <td colSpan="6">
                                         <table border="1" cellPadding="6" style={{width: '100%', marginTop: 5}}>
@@ -261,7 +265,8 @@ const ManagePosts = () => {
                                                     <td>{comment.authorUsername}</td>
                                                     <td>{comment.content}</td>
                                                     <td>
-                                                        <button onClick={() => handleDeleteComment(post.id, comment.id)}
+                                                        <button className="red-button"
+                                                                onClick={() => handleDeleteComment(post.id, comment.id)}
                                                                 style={{marginLeft: 5}}>
                                                             Delete
                                                         </button>

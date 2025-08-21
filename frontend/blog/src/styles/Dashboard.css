@@ -1,21 +1,3 @@
-:root {
-    --bg: #f9fafb;
-    --card: #ffffff;
-    --elev: #ffffff;
-    --text: #1f2937;
-    --muted: #6b7280;
-    --border: #e5e7eb;
-    --primary: #2563eb;
-    --primary-hover: #1d4ed8;
-    --success: #16a34a;
-    --danger: #dc2626;
-    --warning: #d97706;
-    --ring: rgba(37, 99, 235, 0.25);
-    --radius: 14px;
-    --shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.06);
-    --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial;
-}
 
 * {
     box-sizing: border-box;
@@ -44,7 +26,9 @@ body {
     flex-direction: column;
     padding: 20px;
     margin-right: 10px;
+    min-height: 100vh;
 }
+
 .display {
     width: 100%;
 }
@@ -72,12 +56,13 @@ body {
 .sidenav ul li a {
     text-decoration: none;
 }
+
 .sidenav ul li a:hover {
     color: var(--primary-hover);
     text-decoration: underline;
 }
 
- .logout {
+.logout {
     background: var(--primary);
     color: white;
     border: none;
@@ -89,7 +74,7 @@ body {
     transition: background .15s ease, transform .1s ease;
 }
 
- .logout:hover {
+.logout:hover {
     background: var(--primary-hover);
     transform: translateY(-1px);
 }
