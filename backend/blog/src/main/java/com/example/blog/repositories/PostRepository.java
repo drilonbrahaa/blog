@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.blog.entities.Post;
 
+// Post repository
 public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findByTitleContaining(String title);
     List<Post> findByAuthorUsername(String authorUsername);

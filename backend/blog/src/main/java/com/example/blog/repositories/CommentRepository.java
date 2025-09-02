@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.blog.entities.Comment;
 
+// Comment repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
     Set<Comment> findByPostId(Long postId);
 
