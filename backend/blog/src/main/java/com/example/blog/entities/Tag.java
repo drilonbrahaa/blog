@@ -1,7 +1,6 @@
 package com.example.blog.entities;
 
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -17,6 +16,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+// Tag entity
 public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

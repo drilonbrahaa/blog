@@ -11,6 +11,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+// Role entity
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

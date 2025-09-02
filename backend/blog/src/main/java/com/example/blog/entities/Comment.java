@@ -14,6 +14,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+// Comment entity
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

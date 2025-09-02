@@ -16,6 +16,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+// Category entity
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
