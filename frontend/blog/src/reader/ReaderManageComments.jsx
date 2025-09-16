@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import api from "../api";
 import "../styles/Crud.css";
 
+// Component for authors to manage their own comments (view, edit, delete)
 export default function ManageComments() {
     const [comments, setComments] = useState([]);
     const [editingComments, setEditingComments] = useState({});

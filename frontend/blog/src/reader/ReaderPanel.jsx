@@ -1,10 +1,10 @@
-// ReaderPanel.jsx
 import React from 'react';
 import {Routes, Route, Link, useNavigate} from 'react-router-dom';
 import Feed from "../Feed";
 import ManageComments from "./ReaderManageComments";
 import "../styles/Dashboard.css";
 
+// ReaderPanel component for readers to view the feed and manage their comments
 const ReaderPanel = () => {
     const navigate = useNavigate();
 
