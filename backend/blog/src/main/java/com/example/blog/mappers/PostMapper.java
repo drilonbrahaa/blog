@@ -9,8 +9,7 @@ import com.example.blog.entities.Category;
 import com.example.blog.entities.Post;
 import com.example.blog.entities.Tag;
 
-import static com.example.blog.mappers.CommentMapper.toCommentDTO;
-
+// Mapper for Post entity and DTO
 public class PostMapper {
     public static PostResponse toDTO(Post post) {
         if (post == null) {

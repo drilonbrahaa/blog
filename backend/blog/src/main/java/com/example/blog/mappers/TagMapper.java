@@ -3,6 +3,7 @@ package com.example.blog.mappers;
 import com.example.blog.DTOs.tag.TagResponse;
 import com.example.blog.entities.Tag;
 
+// Mapper for Tag entity and DTO
 public class TagMapper {
     public static TagResponse toDTO(Tag tag) {
         TagResponse tagDTO = new TagResponse();

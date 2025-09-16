@@ -1,11 +1,11 @@
 package com.example.blog.mappers;
 
-import com.example.blog.DTOs.comment.CommentRequest;
 import com.example.blog.DTOs.comment.CommentResponse;
 import com.example.blog.entities.Comment;
 import com.example.blog.entities.Post;
 import com.example.blog.entities.User;
 
+// Mapper for Comment entity and DTO
 public class CommentMapper {
     public static CommentResponse toCommentDTO(Comment comment) {
         if (comment == null) {

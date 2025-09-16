@@ -3,6 +3,7 @@ package com.example.blog.mappers;
 import com.example.blog.DTOs.category.CategoryResponse;
 import com.example.blog.entities.Category;
 
+// Mapper for Category entity and DTO
 public class CategoryMapper {
     public static CategoryResponse toDTO(Category category) {
         CategoryResponse categoryDTO = new CategoryResponse();

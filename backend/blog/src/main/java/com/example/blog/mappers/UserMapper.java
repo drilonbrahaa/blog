@@ -5,6 +5,7 @@ import com.example.blog.DTOs.user.UserResponse;
 import com.example.blog.entities.Role;
 import com.example.blog.entities.User;
 
+// Mapper for User entity and DTO
 public class UserMapper {
     public static UserResponse toDTO(User user) {
         if (user == null) {
