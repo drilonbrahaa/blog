@@ -18,6 +18,7 @@ import com.example.blog.services.RoleService;
 
 @RestController
 @RequestMapping("/api/admin/roles")
+// Controller for managing user roles
 public class RoleController {
     @Autowired
     private RoleService roleService;

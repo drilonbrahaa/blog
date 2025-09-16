@@ -3,7 +3,6 @@ package com.example.blog.controllers;
 import java.util.List;
 import java.util.Set;
 
-import com.example.blog.entities.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.blog.DTOs.comment.CommentRequest;
@@ -23,6 +21,7 @@ import com.example.blog.services.CommentService;
 
 @RestController
 @RequestMapping("/api/comments")
+// Controller for managing comments on blog posts
 public class CommentController {
     @Autowired
     private CommentService commentService;

@@ -2,7 +2,6 @@ package com.example.blog.controllers;
 
 import java.util.List;
 
-import com.example.blog.DTOs.tag.TagResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.blog.DTOs.tag.TagResponse;
 import com.example.blog.entities.Tag;
 import com.example.blog.services.TagService;
 
 @RestController
 @RequestMapping("/api/tags")
+// Controller for managing blog tags
 public class TagController {
     @Autowired
     private TagService tagService;

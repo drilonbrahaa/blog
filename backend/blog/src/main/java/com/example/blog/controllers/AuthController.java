@@ -1,7 +1,5 @@
 package com.example.blog.controllers;
 
-import com.example.blog.DTOs.auth.LoginResponse;
-import com.example.blog.DTOs.user.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,12 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.blog.DTOs.auth.LoginRequest;
-import com.example.blog.DTOs.user.UserRequest;
+import com.example.blog.DTOs.auth.LoginResponse;
+import com.example.blog.DTOs.user.UserResponse;
 import com.example.blog.services.AuthService;
-import com.example.blog.services.UserService;
 
 @RestController
 @RequestMapping("/api/auth")
+// Controller for authentication and registration
 public class AuthController {
 
     @Autowired

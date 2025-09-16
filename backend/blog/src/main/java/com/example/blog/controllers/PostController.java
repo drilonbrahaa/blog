@@ -1,14 +1,10 @@
 package com.example.blog.controllers;
 
 import java.util.List;
-import java.util.Map;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +22,7 @@ import com.example.blog.services.PostService;
 
 @RestController
 @RequestMapping("/api/posts")
+// Controller for managing blog posts
 public class PostController {
     @Autowired
     private PostService postService;

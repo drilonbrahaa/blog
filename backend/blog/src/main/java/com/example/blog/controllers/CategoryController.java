@@ -2,7 +2,6 @@ package com.example.blog.controllers;
 
 import java.util.List;
 
-import com.example.blog.DTOs.category.CategoryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.blog.DTOs.category.CategoryResponse;
 import com.example.blog.entities.Category;
 import com.example.blog.services.CategoryService;
 
 @RestController
 @RequestMapping("/api/categories")
+// Controller for managing blog categories
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
