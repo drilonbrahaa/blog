@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import api from '../api';
 import "../styles/Crud.css";
 
+// Component for managing comments (viewing and deleting)
 const ManageComments = () => {
     const [comments, setComments] = useState([]);
     const [error, setError] = useState('');

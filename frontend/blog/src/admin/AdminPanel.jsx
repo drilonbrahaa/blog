@@ -1,4 +1,3 @@
-// AdminPanel.jsx
 import React from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import ManageUsers from "./ManageUsers";
@@ -7,6 +6,7 @@ import ManageComments from "./ManageComments";
 import Feed from "../Feed";
 import "../styles/Dashboard.css";
 
+// AdminPanel component for managing users, posts, comments, and viewing the feed
 const AdminPanel = () => {
     const navigate = useNavigate();
     const logout = () => {

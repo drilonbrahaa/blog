@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import api from '../api';
 import "../styles/Crud.css";
 
+// Component for managing posts (create, edit, delete) and viewing/deleting comments
 const ManagePosts = () => {
     const [posts, setPosts] = useState([]);
     const [categories, setCategories] = useState([]);

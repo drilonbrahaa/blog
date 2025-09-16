@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import api from "../api";
 import "../styles/Crud.css";
 
+// Component for managing users (viewing, creating, editing, deleting)
 const ManageUsers = () => {
     const [users, setUsers] = useState([]);
     const [form, setForm] = useState({ username: '', password: '', roleName: '' });
