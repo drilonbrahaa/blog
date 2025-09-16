@@ -3,17 +3,18 @@ package com.example.blog.services;
 import java.util.List;
 import java.util.Set;
 
-import com.example.blog.DTOs.tag.TagResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.blog.mappers.TagMapper;
-import com.example.blog.entities.Tag;
-import com.example.blog.repositories.TagRepository;
 
+import com.example.blog.DTOs.tag.TagResponse;
+import com.example.blog.entities.Tag;
+import com.example.blog.mappers.TagMapper;
 import static com.example.blog.mappers.TagMapper.toDTO;
+import com.example.blog.repositories.TagRepository;
 
 
 @Service
+// Service for managing blog tags
 public class TagService {
     @Autowired
     private TagRepository tagRepository;

@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.blog.entities.User;
 
+// Custom UserDetails implementation for Spring Security
 public class CustomUserDetails implements UserDetails {
     private final User user;
 

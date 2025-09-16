@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.example.blog.mappers.CommentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +13,13 @@ import com.example.blog.DTOs.user.UserResponse;
 import com.example.blog.entities.Comment;
 import com.example.blog.entities.Post;
 import com.example.blog.entities.User;
-
-import static com.example.blog.mappers.CommentMapper.toCrudEntity;
+import com.example.blog.mappers.CommentMapper;
 import static com.example.blog.mappers.CommentMapper.toCommentDTO;
-
+import static com.example.blog.mappers.CommentMapper.toCrudEntity;
 import com.example.blog.repositories.CommentRepository;
 
 @Service
+// Service for managing comments on blog posts
 public class CommentService {
     @Autowired
     private CommentRepository commentRepository;

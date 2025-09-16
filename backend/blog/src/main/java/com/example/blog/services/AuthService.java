@@ -19,6 +19,7 @@ import static com.example.blog.mappers.UserMapper.toDTO;
 import com.example.blog.repositories.UserRepository;
 
 @Service
+// Authentication and Registration service
 public class AuthService {
 
         @Autowired

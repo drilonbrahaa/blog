@@ -4,12 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import com.example.blog.DTOs.category.CategoryResponse;
-import com.example.blog.entities.User;
-import com.example.blog.mappers.PostMapper;
-import com.example.blog.repositories.CategoryRepository;
-import com.example.blog.repositories.TagRepository;
-import com.example.blog.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
@@ -19,15 +13,17 @@ import com.example.blog.DTOs.post.PostResponse;
 import com.example.blog.entities.Category;
 import com.example.blog.entities.Post;
 import com.example.blog.entities.Tag;
-
+import com.example.blog.entities.User;
+import com.example.blog.mappers.PostMapper;
 import static com.example.blog.mappers.PostMapper.toCrudEntity;
 import static com.example.blog.mappers.PostMapper.toDTO;
-import static com.example.blog.mappers.CategoryMapper.toCategoryEntity;
-import static com.example.blog.mappers.TagMapper.toTagEntity;
-
+import com.example.blog.repositories.CategoryRepository;
 import com.example.blog.repositories.PostRepository;
+import com.example.blog.repositories.TagRepository;
+import com.example.blog.repositories.UserRepository;
 
 @Service
+// Service for managing blog posts
 public class PostService {
     @Autowired
     private PostRepository postRepository;

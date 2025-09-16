@@ -18,6 +18,7 @@ import static com.example.blog.mappers.UserMapper.toDTO;
 import com.example.blog.repositories.UserRepository;
 
 @Service
+// Service for managing users
 public class UserService implements UserDetailsService {
 
     @Autowired

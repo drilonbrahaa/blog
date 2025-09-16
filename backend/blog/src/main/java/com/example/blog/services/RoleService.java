@@ -10,6 +10,7 @@ import com.example.blog.entities.Role;
 import com.example.blog.repositories.RoleRepository;
 
 @Service
+// Service for managing user roles
 public class RoleService {
     @Autowired
     private RoleRepository roleRepository;

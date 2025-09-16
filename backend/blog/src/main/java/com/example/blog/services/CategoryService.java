@@ -2,17 +2,17 @@ package com.example.blog.services;
 
 import java.util.List;
 
-import com.example.blog.DTOs.category.CategoryResponse;
-import com.example.blog.mappers.CategoryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.blog.DTOs.category.CategoryResponse;
 import com.example.blog.entities.Category;
+import com.example.blog.mappers.CategoryMapper;
+import static com.example.blog.mappers.CategoryMapper.toDTO;
 import com.example.blog.repositories.CategoryRepository;
 
-import static com.example.blog.mappers.CategoryMapper.toDTO;
-
 @Service
+// Service for managing blog categories
 public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
