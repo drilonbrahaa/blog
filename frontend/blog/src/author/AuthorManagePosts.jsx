@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import api from "../api";
 import "../styles/Crud.css";
 
+// Component for authors to manage their posts (create, edit, delete) and view/delete comments
 export default function AuthorManagePosts() {
     const [posts, setPosts] = useState([]);
     const [form, setForm] = useState({title: "", content: "", categoryName: "", tagNames: []});
@@ -240,26 +241,35 @@ export default function AuthorManagePosts() {
                                         </button>
                                     </td>
                                 </tr>
-                                {showCommentsFor === post.id && (
+                                {showCommentsFor === post.id && comments[post.id] && (
                                     <tr>
-                                        <td colSpan="5">
-                                            {comments[post.id]?.length > 0 ? (
-                                                <ul>
-                                                    {comments[post.id].map((c) => (
-                                                        <li key={c.id}>
-                                                            <strong>{c.authorUsername}</strong> {c.content}{" "}
-                                                            <button
-                                                                onClick={() => deleteComment(c.id, post.id)}
-                                                                style={{marginLeft: 10}}
+                                        <td colSpan="6">
+                                            <table border="1" cellPadding="6" style={{width: '100%', marginTop: 5}}>
+                                                <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Author</th>
+                                                    <th>Content</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {comments[post.id].map(comment => (
+                                                    <tr key={comment.id}>
+                                                        <td>{comment.id}</td>
+                                                        <td>{comment.authorUsername}</td>
+                                                        <td>{comment.content}</td>
+                                                        <td>
+                                                            <button className="red-button"
+                                                                    onClick={() => deleteComment(comment.id, post.id)}
                                                             >
                                                                 Delete
                                                             </button>
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            ) : (
-                                                <p>No comments for this post.</p>
-                                            )}
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                                </tbody>
+                                            </table>
                                         </td>
                                     </tr>
                                 )}

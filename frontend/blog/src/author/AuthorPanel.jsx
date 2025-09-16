@@ -1,11 +1,10 @@
-// AuthorPanel.jsx
 import React from 'react';
 import {Routes, Route, Link, useNavigate} from 'react-router-dom';
 import Feed from "../Feed";
 import AuthorManagePosts from "./AuthorManagePosts";
 import "../styles/Dashboard.css";
 
-
+// AuthorPanel component for authors to manage their posts and view the feed
 const AuthorPanel = () => {
     const navigate = useNavigate();
     const logout = () => {
