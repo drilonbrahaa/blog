@@ -7,6 +7,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.blog.DTOs.post.PostRequest;
 import com.example.blog.DTOs.post.PostResponse;
@@ -18,9 +19,11 @@ import com.example.blog.mappers.PostMapper;
 import static com.example.blog.mappers.PostMapper.toCrudEntity;
 import static com.example.blog.mappers.PostMapper.toDTO;
 import com.example.blog.repositories.CategoryRepository;
+import com.example.blog.repositories.CommentRepository;
 import com.example.blog.repositories.PostRepository;
 import com.example.blog.repositories.TagRepository;
 import com.example.blog.repositories.UserRepository;
+
 
 @Service
 // Service for managing blog posts
@@ -33,6 +36,8 @@ public class PostService {
     private TagRepository tagRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private CommentRepository commentRepository;
 
     @Query("SELECT p FROM Post p " +
             "LEFT JOIN FETCH p.author " +
@@ -104,9 +109,11 @@ public class PostService {
         return toDTO(existingPost);
     }
 
+    @Transactional
     public void deletePost(Long postId) {
         Post existingPost = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("Post not found"));
+        commentRepository.deleteByPost(existingPost);
         postRepository.delete(existingPost);
 
     }

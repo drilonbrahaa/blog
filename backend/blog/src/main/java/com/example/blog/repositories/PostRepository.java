@@ -10,4 +10,6 @@ import com.example.blog.entities.Post;
 public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findByTitleContaining(String title);
     List<Post> findByAuthorUsername(String authorUsername);
+    
+    void deleteByAuthorId(Long authorId);
 }

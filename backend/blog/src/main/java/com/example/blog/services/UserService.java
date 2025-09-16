@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.blog.DTOs.user.UserRequest;
 import com.example.blog.DTOs.user.UserResponse;
@@ -15,6 +16,8 @@ import com.example.blog.entities.Role;
 import com.example.blog.entities.User;
 import static com.example.blog.mappers.UserMapper.toCrudEntity;
 import static com.example.blog.mappers.UserMapper.toDTO;
+import com.example.blog.repositories.CommentRepository;
+import com.example.blog.repositories.PostRepository;
 import com.example.blog.repositories.UserRepository;
 
 @Service
@@ -23,6 +26,12 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PostRepository postRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
 
     @Autowired
     private RoleService roleService;
@@ -80,8 +89,11 @@ public class UserService implements UserDetailsService {
         return toDTO(existingUser);
     }
 
+    @Transactional
     public void deleteUser(Long userId) {
         if (userRepository.existsById(userId)) {
+            commentRepository.deleteByAuthorId(userId);
+            postRepository.deleteByAuthorId(userId);
             userRepository.deleteById(userId);
         }
     }
