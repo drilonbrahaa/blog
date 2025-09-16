@@ -5,6 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+// DTO for category response
 public class CategoryResponse {
     private Long id;
     private String name;

@@ -5,6 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+// DTO for tag response
 public class TagResponse {
     private Long id;
     private String name;
