@@ -3,6 +3,7 @@ import api from './api';
 import {useNavigate} from 'react-router-dom';
 import './styles/Auth.css';
 
+// Login component for user authentication and role-based redirection
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');

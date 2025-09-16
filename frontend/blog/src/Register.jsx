@@ -3,6 +3,7 @@ import api from './api';
 import {useNavigate} from 'react-router-dom';
 import './styles/Auth.css';
 
+// Register component for new user registration
 const Register = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
