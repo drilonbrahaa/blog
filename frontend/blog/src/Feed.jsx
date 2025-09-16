@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import api from "./api";
 import "./styles/Feed.css";
 
+// Feed component for displaying posts with filtering and comment management
 export default function Feed() {
     const [posts, setPosts] = useState([]);
     const [categories, setCategories] = useState([]);
