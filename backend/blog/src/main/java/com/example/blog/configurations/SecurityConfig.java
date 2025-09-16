@@ -1,5 +1,11 @@
 package com.example.blog.configurations;
 
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,19 +24,15 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import com.example.blog.jwt.JwtAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
+import com.example.blog.jwt.JwtAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
+//Security configuration for the app
 public class SecurityConfig {
 
     @Bean
@@ -52,7 +54,7 @@ public class SecurityConfig {
         return http.build();
     }
 
-
+    // Custom JWT decoder
     @Bean
     public JwtDecoder jwtDecoder(@Value("${secret.key}") String secret) {
         SecretKey key = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
@@ -74,7 +76,7 @@ public class SecurityConfig {
         return source;
     }
 
-
+    // Custom JWT auth converter
     @Bean
     public JwtAuthenticationConverter jwtAuthenticationConverter() {
         JwtGrantedAuthoritiesConverter authoritiesConverter = new JwtGrantedAuthoritiesConverter();
